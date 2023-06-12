@@ -23,7 +23,7 @@ const userController = {
                     throw new Error(`Password invalid`)
                 }
 
-                let tokenData = { _id: user._id, email: user.email }
+                let tokenData = { _id: user._id, fullName: user.fullName, email: user.email }
                 const token = await UserService.generateToken(tokenData, 'secretKey', '1h')
 
                 res.status(200).json({ status: true, token })
