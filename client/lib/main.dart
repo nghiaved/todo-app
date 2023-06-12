@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (JwtDecoder.isExpired(token!) == false)
+      home: (token != null && (JwtDecoder.isExpired(token!) == false))
           ? HomePage(token: token)
           : const LoginPage(),
     );

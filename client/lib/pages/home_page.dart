@@ -1,5 +1,8 @@
+import 'package:client/main.dart';
+import 'package:client/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.token});
@@ -23,8 +26,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          userInfo['fullName'],
+        child: GestureDetector(
+          onTap: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.remove('token');
+            // ignore: use_build_context_synchronously
+            nextScreen(context, MyApp(token: prefs.getString('token')));
+          },
+          child: Text(
+            userInfo['fullName'],
+          ),
         ),
       ),
     );

@@ -40,6 +40,10 @@ class _LoginPageState extends State<LoginPage> {
 
       await Future.delayed(const Duration(seconds: 1));
 
+      setState(() {
+        _isLoading = false;
+      });
+
       final reqBody = {
         "email": _emailController.text,
         "password": _passwordController.text,
@@ -51,10 +55,6 @@ class _LoginPageState extends State<LoginPage> {
           headers: {'content-type': 'application/json'},
           body: jsonEncode(reqBody),
         );
-
-        setState(() {
-          _isLoading = false;
-        });
 
         final jsonResponse = jsonDecode(response.body);
         if (jsonResponse['status'] == true) {

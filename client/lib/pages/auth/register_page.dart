@@ -28,6 +28,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
       await Future.delayed(const Duration(seconds: 1));
 
+      setState(() {
+        _isLoading = false;
+      });
+
       final reqBody = {
         "fullName": _fullNameController.text,
         "email": _emailController.text,
@@ -40,10 +44,6 @@ class _RegisterPageState extends State<RegisterPage> {
           headers: {'content-type': 'application/json'},
           body: jsonEncode(reqBody),
         );
-
-        setState(() {
-          _isLoading = false;
-        });
 
         final jsonResponse = jsonDecode(response.body);
         if (jsonResponse['status'] == true) {
