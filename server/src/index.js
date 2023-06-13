@@ -1,6 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const path = require('path')
+const fileupload = require('express-fileupload')
+
 
 const connectDB = require('./config/db')
 const routes = require('./routes')
@@ -9,6 +12,9 @@ const app = express()
 const PORT = 7000
 
 connectDB()
+
+app.use(express.static(path.join(__dirname, 'uploads')))
+app.use(fileupload({ createParentPath: true }))
 
 app.use(cors())
 
