@@ -24,7 +24,7 @@ const userController = {
                 }
 
                 let tokenData = { _id: user._id, fullName: user.fullName, email: user.email }
-                const token = await UserService.generateToken(tokenData, 'secretKey', '1h')
+                const token = await UserService.generateToken(tokenData, 'secretKey', '1d')
 
                 res.status(200).json({ status: true, token })
             })
