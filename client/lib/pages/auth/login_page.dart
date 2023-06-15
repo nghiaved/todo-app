@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/constants/app_colors.dart';
 import 'package:client/constants/config.dart';
 import 'package:client/pages/auth/register_page.dart';
 import 'package:client/pages/home_page.dart';
@@ -64,11 +65,11 @@ class _LoginPageState extends State<LoginPage> {
           nextScreen(context, HomePage(token: myToken));
         } else {
           // ignore: use_build_context_synchronously
-          showSnackBar(context, Colors.red, 'Login failure');
+          showSnackBar(context, AppColors.redColor, 'Login failure');
         }
       } catch (e) {
         // ignore: use_build_context_synchronously
-        showSnackBar(context, Colors.red, 'Login failure');
+        showSnackBar(context, AppColors.redColor, 'Login failure');
       }
     }
   }
@@ -77,9 +78,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.primaryColor,
               ),
             )
           : Center(
@@ -97,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffee7b64),
+                            color: AppColors.primaryColor,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -132,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             onPressed: login,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffee7b64),
+                                backgroundColor: AppColors.primaryColor,
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -142,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 'Login',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                    color: AppColors.whiteColor, fontSize: 16),
                               ),
                             ),
                           ),
@@ -151,12 +152,12 @@ class _LoginPageState extends State<LoginPage> {
                         Text.rich(TextSpan(
                           text: "Don't have an account? ",
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 14),
+                              color: AppColors.blackColor, fontSize: 14),
                           children: <TextSpan>[
                             TextSpan(
                               text: "Register here",
                               style: const TextStyle(
-                                color: Colors.black,
+                                color: AppColors.blackColor,
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()

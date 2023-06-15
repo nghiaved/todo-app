@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const urlMongodb = 'mongodb://localhost:27017/shop-app'
+const urlMongodb = 'mongodb://localhost:27017/todo-app'
 
 const connectDB = () => {
     try {

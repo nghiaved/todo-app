@@ -1,9 +1,9 @@
 const userRoute = require('./user.route')
-const productRoute = require('./product.route')
+const todoRoute = require('./todo.route')
 
 const routes = app => {
     userRoute(app)
-    productRoute(app)
+    todoRoute(app)
 }
 
 module.exports = routes

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/constants/app_colors.dart';
 import 'package:client/constants/config.dart';
 import 'package:client/pages/auth/login_page.dart';
 import 'package:client/widgets/widgets.dart';
@@ -51,14 +52,14 @@ class _RegisterPageState extends State<RegisterPage> {
           _emailController.text = '';
           _passwordController.text = '';
           // ignore: use_build_context_synchronously
-          showSnackBar(context, Colors.green, 'Register successfully');
+          showSnackBar(context, AppColors.greenColor, 'Register successfully');
         } else {
           // ignore: use_build_context_synchronously
-          showSnackBar(context, Colors.red, 'Register failure');
+          showSnackBar(context, AppColors.redColor, 'Register failure');
         }
       } catch (e) {
         // ignore: use_build_context_synchronously
-        showSnackBar(context, Colors.red, 'Register failure');
+        showSnackBar(context, AppColors.redColor, 'Register failure');
       }
     }
   }
@@ -67,9 +68,9 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.primaryColor,
               ),
             )
           : Center(
@@ -87,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffee7b64),
+                            color: AppColors.primaryColor,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -135,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: ElevatedButton(
                             onPressed: register,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffee7b64),
+                                backgroundColor: AppColors.primaryColor,
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -145,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               child: Text(
                                 'Register',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                    color: AppColors.whiteColor, fontSize: 16),
                               ),
                             ),
                           ),
@@ -155,12 +156,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           TextSpan(
                             text: "Already have an account? ",
                             style: const TextStyle(
-                                color: Colors.black, fontSize: 14),
+                                color: AppColors.blackColor, fontSize: 14),
                             children: <TextSpan>[
                               TextSpan(
                                 text: "Login now",
                                 style: const TextStyle(
-                                  color: Colors.black,
+                                  color: AppColors.blackColor,
                                   decoration: TextDecoration.underline,
                                 ),
                                 recognizer: TapGestureRecognizer()

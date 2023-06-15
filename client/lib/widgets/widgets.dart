@@ -1,22 +1,25 @@
+import 'package:client/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 InputDecoration textInputDecoration(text, icon) {
   return InputDecoration(
     labelText: text,
-    labelStyle:
-        const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+    labelStyle: const TextStyle(
+      color: AppColors.blackColor,
+      fontWeight: FontWeight.w300,
+    ),
     prefixIcon: Icon(
       icon,
-      color: const Color(0xffee7b64),
+      color: AppColors.primaryColor,
     ),
     focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xffee7b64), width: 2),
+      borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
     ),
     enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xffee7b64), width: 2),
+      borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
     ),
     errorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xffee7b64), width: 2),
+      borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
     ),
   );
 }

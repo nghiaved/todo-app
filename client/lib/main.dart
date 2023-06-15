@@ -1,3 +1,4 @@
+import 'package:client/constants/app_colors.dart';
 import 'package:client/pages/auth/login_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: AppColors.primaryColor,
+        scaffoldBackgroundColor: AppColors.whiteColor,
+      ),
       home: (token != null && (JwtDecoder.isExpired(token!) == false))
           ? HomePage(token: token)
           : const LoginPage(),
