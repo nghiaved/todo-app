@@ -1,17 +1,14 @@
 import 'package:client/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-InputDecoration textInputDecoration(text, icon) {
+InputDecoration textInputDecoration(text, IconData? icon) {
   return InputDecoration(
     labelText: text,
     labelStyle: const TextStyle(
       color: AppColors.blackColor,
       fontWeight: FontWeight.w300,
     ),
-    prefixIcon: Icon(
-      icon,
-      color: AppColors.primaryColor,
-    ),
+    prefixIcon: icon != null ? Icon(icon, color: AppColors.primaryColor) : null,
     focusedBorder: const OutlineInputBorder(
       borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
     ),

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
-        scaffoldBackgroundColor: AppColors.whiteColor,
+        scaffoldBackgroundColor: AppColors.secondColor,
       ),
       home: (token != null && (JwtDecoder.isExpired(token!) == false))
           ? HomePage(token: token)

@@ -33,7 +33,6 @@ const todoController = {
 
     handleDelete: async (req, res, next) => {
         const _id = req.params.id
-        console.log(_id);
         await TodoService.deleteTodo(_id)
             .then(todo => {
                 res.status(200).json({
