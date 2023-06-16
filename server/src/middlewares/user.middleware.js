@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt')
 
 exports.hashPassword = async function () {
     try {
-        const user = this
+        let user = {}
+        this._id != null ? user = this : user = this._update
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(user.password, salt)
         user.password = hash

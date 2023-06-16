@@ -28,7 +28,9 @@ class _FormPageState extends State<FormPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
-        title: const Text('Add Todo'),
+        title: widget.data == null
+            ? const Text('Add Todo')
+            : const Text('Edit Todo'),
         centerTitle: true,
       ),
       body: Padding(

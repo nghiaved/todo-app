@@ -1,6 +1,7 @@
 const urlServer = 'http://localhost:7000/';
 const registerUrl = '${urlServer}api/user/register';
 const loginUrl = '${urlServer}api/user/login';
+const updateUrl = '${urlServer}api/user/update';
 const createTodoUrl = '${urlServer}api/todo/create';
 const readTodoUrl = '${urlServer}api/todo/read';
 const updateTodoUrl = '${urlServer}api/todo/update';

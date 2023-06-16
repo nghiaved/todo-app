@@ -20,10 +20,13 @@ const userSchema = new Schema({
         type: String,
         minLength: 6,
         required: true,
-    }
+    },
+    image: String,
+
 })
 
 userSchema.pre('save', userMiddleware.hashPassword)
+userSchema.pre('updateOne', userMiddleware.hashPassword)
 userSchema.methods.comparePassword = userMiddleware.comparePassword
 
 module.exports = mongoose.model('user', userSchema)

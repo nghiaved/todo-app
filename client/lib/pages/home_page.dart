@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:client/constants/app_colors.dart';
 import 'package:client/constants/config.dart';
 import 'package:client/main.dart';
+import 'package:client/pages/edit_profile_page.dart';
 import 'package:client/pages/form_page.dart';
+import 'package:client/widgets/image_widget.dart';
 import 'package:client/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Map<String, dynamic> userInfo;
   List? todos;
 
@@ -149,10 +152,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
           child: const Icon(Icons.menu),
         ),
         title: Text(userInfo['fullName']),
@@ -231,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: todos![index]['title'],
+                                      text: todos![index]['desc'],
                                       style: const TextStyle(
                                         color: AppColors.blackColor,
                                         fontWeight: FontWeight.normal,
@@ -287,6 +293,99 @@ class _HomePageState extends State<HomePage> {
           }
         },
         child: const Icon(Icons.add, size: 38),
+      ),
+      drawer: Drawer(
+        backgroundColor: AppColors.secondColor,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Center(
+                child: Text(
+                  'Profile',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: ImageWidget(image: userInfo['image'] ?? ''),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.person,
+                    size: 40,
+                    color: AppColors.primaryColor,
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Fullname',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        userInfo['fullName'],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.email,
+                    size: 40,
+                    color: AppColors.primaryColor,
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Email',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        userInfo['email'],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.primaryColor,
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      nextScreen(context, EditProfilePage(userInfo: userInfo));
+                    },
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                      child: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
