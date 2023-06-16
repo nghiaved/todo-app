@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:client/constants/app_colors.dart';
-import 'package:client/constants/config.dart';
+import 'package:client/helpers/http_helper.dart';
 import 'package:client/pages/home_page.dart';
+import 'package:client/widgets/button_widget.dart';
 import 'package:client/widgets/pic_picker.dart';
 import 'package:client/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -34,27 +34,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   update() async {
     if (formKey.currentState!.validate()) {
-      var uri = '$updateUrl/${widget.userInfo['_id']}';
-      var reqBody = {
+      final reqBody = {
         "fullName": _fullNameController.text,
         "email": _emailController.text,
         "password": _passwordController.text,
         "image": widget.userInfo['image'],
       };
 
-      var response = await http.put(
-        Uri.parse(uri),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(reqBody),
-      );
+      try {
+        final response =
+            await HttpHelper.updateUser(widget.userInfo['_id'], reqBody);
 
-      var jsonResponse = jsonDecode(response.body);
-      if (jsonResponse['status']) {
-        final myToken = jsonResponse['token'];
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', myToken);
+        final jsonResponse = jsonDecode(response.body);
+        if (jsonResponse['status']) {
+          final myToken = jsonResponse['token'];
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', myToken);
+          // ignore: use_build_context_synchronously
+          nextScreen(context, HomePage(token: myToken));
+        }
+      } catch (e) {
         // ignore: use_build_context_synchronously
-        nextScreen(context, HomePage(token: myToken));
+        showSnackBar(context, AppColors.redColor, 'Update profile failure');
       }
     }
   }
@@ -127,28 +128,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   },
                 ),
                 const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: update,
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        'Update',
-                        style: TextStyle(
-                          color: AppColors.whiteColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                ButtonWidget(func: update, text: 'Update'),
               ],
             ),
           ),

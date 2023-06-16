@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:client/constants/app_colors.dart';
-import 'package:client/constants/config.dart';
+import 'package:client/helpers/http_helper.dart';
 import 'package:client/pages/auth/login_page.dart';
+import 'package:client/widgets/button_widget.dart';
 import 'package:client/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -40,11 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
       };
 
       try {
-        final response = await http.post(
-          Uri.parse(registerUrl),
-          headers: {'content-type': 'application/json'},
-          body: jsonEncode(reqBody),
-        );
+        final response = await HttpHelper.registerUser(reqBody);
 
         final jsonResponse = jsonDecode(response.body);
         if (jsonResponse['status'] == true) {
@@ -131,26 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: register,
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primaryColor,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                'Register',
-                                style: TextStyle(
-                                    color: AppColors.whiteColor, fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        ),
+                        ButtonWidget(func: register, text: 'Register'),
                         const SizedBox(height: 20),
                         Text.rich(
                           TextSpan(

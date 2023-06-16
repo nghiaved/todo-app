@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:client/constants/app_colors.dart';
-import 'package:client/constants/config.dart';
+import 'package:client/helpers/http_helper.dart';
 import 'package:client/pages/auth/register_page.dart';
 import 'package:client/pages/home_page.dart';
+import 'package:client/widgets/button_widget.dart';
 import 'package:client/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,11 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       };
 
       try {
-        final response = await http.post(
-          Uri.parse(loginUrl),
-          headers: {'content-type': 'application/json'},
-          body: jsonEncode(reqBody),
-        );
+        final response = await HttpHelper.loginUser(reqBody);
 
         final jsonResponse = jsonDecode(response.body);
         if (jsonResponse['status'] == true) {
@@ -128,26 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: login,
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primaryColor,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                    color: AppColors.whiteColor, fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        ),
+                        ButtonWidget(func: login, text: 'Login'),
                         const SizedBox(height: 20),
                         Text.rich(TextSpan(
                           text: "Don't have an account? ",
